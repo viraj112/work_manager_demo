@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.background"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.background">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <queries>
         <package android:name="com.example.background" />
+
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:mimeType="image/png"/>
+
+            <data android:mimeType="image/png" />
         </intent>
     </queries>
 
@@ -20,15 +23,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".BlurActivity"
+        <activity
+            android:name=".services.ForeGroundServiceActivity"
             android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BlurActivity"
+            android:exported="true">
 
+        </activity>
+        <service
+            android:name="MyForegroundService"
+            android:exported="true"
+            android:enabled="true"
+            />
     </application>
+
 
 </manifest>
