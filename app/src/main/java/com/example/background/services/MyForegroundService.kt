@@ -1,9 +1,12 @@
+package com.example.background.services
+
 import android.app.*
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.background.BlurActivity
 import com.example.background.R
 import com.example.background.services.ForeGroundServiceActivity
 
@@ -17,7 +20,7 @@ class MyForegroundService : Service() {
     override fun onStartCommand(service: Intent?, flags: Int, startId: Int): Int {
         val input: String? = service?.getStringExtra("inputExtra")
         createNotificationChannel()
-        val notificationIntent = Intent(this, ForeGroundServiceActivity::class.java)
+        val notificationIntent = Intent(this, BoundServiceActivity::class.java)
         val pendingIntent: PendingIntent = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             PendingIntent.getActivity(this, 1, notificationIntent, PendingIntent.FLAG_MUTABLE);
         }
@@ -43,5 +46,10 @@ class MyForegroundService : Service() {
         )
         val manager: NotificationManager? = getSystemService(NotificationManager::class.java)
         manager?.createNotificationChannel(serviceChannel)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopSelf()
     }
 }

@@ -5,7 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <queries>
         <package android:name="com.example.background" />
 
@@ -24,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".services.ForeGroundServiceActivity"
+            android:name=".services.BoundServiceActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -36,16 +37,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BlurActivity"
+            android:name=".services.ForeGroundServiceActivity"
             android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
 
         </activity>
-        <service
-            android:name="MyForegroundService"
-            android:exported="true"
-            android:enabled="true"
-            />
-    </application>
+        <activity
+            android:name=".BlurActivity"
+            android:exported="true"></activity>
 
+        <service
+            android:name=".services.MyForegroundService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.BoundService"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
 
 </manifest>

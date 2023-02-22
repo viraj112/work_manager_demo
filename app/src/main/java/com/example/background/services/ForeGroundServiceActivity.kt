@@ -1,16 +1,13 @@
 package com.example.background.services
 
-import MyForegroundService
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.background.BuildConfig
 import com.example.background.R
 import kotlinx.android.synthetic.main.activity_fore_ground_service.*
@@ -22,26 +19,30 @@ class ForeGroundServiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fore_ground_service)
         btn_start.setOnClickListener {
-            startForegroundService(Intent(this, MyForegroundService::class.java))
+            val startIntent = Intent(this, MyForegroundService::class.java)
+            startIntent.putExtra("inputExtra", "Sample Service Example")
+            startForegroundService(startIntent)
             updateTextStatus()
         }
         btn_stop.setOnClickListener {
-            /*val intentStop = Intent(this, MyForegroundService::class.java)
-            intentStop.action = ACTION_STOP_FOREGROUND
-            //startService(intentStop)
+            val intentStop = Intent(this, MyForegroundService::class.java)
+           /* intentStop.action = ACTION_STOP_FOREGROUND
+            startService(intentStop)
             Handler().postDelayed({
                 updateTextStatus()
             },100)*/
+            stopService(intentStop)
         }
+
         updateTextStatus()
     }
 
     private fun updateTextStatus() {
-       /* if(isMyServiceRunning(MyForegroundService::class.java)){
+        if(isMyServiceRunning(MyForegroundService::class.java)){
            txt_service_status.text = "Service is Running"
         }else{
            txt_service_status.text = "Service is NOT Running"
-        }*/
+        }
     }
 
 
